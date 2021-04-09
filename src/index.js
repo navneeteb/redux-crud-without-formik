@@ -4,11 +4,26 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+// step  one for redux
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import userReducer from './reducers/userReducer'
+
+  if(localStorage.getItem('token')===null) /*to empty the current state of data in localstorage */
+    localStorage.setItem('token', JSON.stringify([]))
+  let initialState = {
+    currentIndex: -1,
+    list : JSON.parse(localStorage.getItem('token'))
+  }
+
+  // creating store for redux
+  var store = createStore(userReducer, initialState)
 ReactDOM.render(
-  <React.StrictMode>
+
+  <Provider store={store}>
     <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+  </Provider>    
+  , document.getElementById('root')
 );
 
 // If you want to start measuring performance in your app, pass a function
